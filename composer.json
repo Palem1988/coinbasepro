@@ -1,0 +1,37 @@
+{
+  "name": "benfranke/coinbasepro",
+  "description": "CoinbasePro PHP API Client",
+  "keywords": [
+    "coinbase pro",
+    "php"
+  ],
+  "homepage": "https://github.com/benfranke/coinbasepro",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Benjamin Franke",
+      "email": "benfranke@me.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "suggest": {
+    "ext-decimal": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "CoinbasePro\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "CoinbasePro\\Test\\": "tests"
+    }
+  }
+}
