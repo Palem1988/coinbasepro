@@ -27,7 +27,7 @@ class ProductHistoricRate implements ResponseTypeInterface {
         return $this->time;
     }
 
-    private function setTime(?string $time): self {
+    private function setTime(?int $time): self {
 
         if ($time === null) {
             return $this;
@@ -38,47 +38,47 @@ class ProductHistoricRate implements ResponseTypeInterface {
 
     }
 
-    public function getLow(): ?string {
+    public function getLow(): ?float {
         return $this->low;
     }
 
-    private function setLow(?string $low): self {
+    private function setLow(?float $low): self {
         $this->low = $low;
         return $this;
     }
 
-    public function getHigh(): ?string {
+    public function getHigh(): ?float {
         return $this->high;
     }
 
-    private function setHigh(?string $high): self {
+    private function setHigh(?float $high): self {
         $this->high = $high;
         return $this;
     }
 
-    public function getOpen(): ?string {
+    public function getOpen(): ?float {
         return $this->open;
     }
 
-    private function setOpen(?string $open): self {
+    private function setOpen(?float $open): self {
         $this->open = $open;
         return $this;
     }
 
-    public function getClose(): ?string {
+    public function getClose(): ?float {
         return $this->close;
     }
 
-    private function setClose(?string $close): self {
+    private function setClose(?float $close): self {
         $this->close = $close;
         return $this;
     }
 
-    public function getVolume(): ?string {
+    public function getVolume(): ?float {
         return $this->volume;
     }
 
-    private function setVolume(?string $volume): self {
+    private function setVolume(?float $volume): self {
         $this->volume = $volume;
         return $this;
     }

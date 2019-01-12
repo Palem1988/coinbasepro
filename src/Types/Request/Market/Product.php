@@ -32,6 +32,10 @@ class Product implements RequestTypeInterface {
     /** @var int|null */
     protected $granularity;
 
+    public function initFromResponse(\CoinbasePro\Types\Response\Market\Product $product) {
+        return $this->setProductId($product->getId());
+    }
+
     public function getProductId(): ?string {
         return $this->product_id;
     }

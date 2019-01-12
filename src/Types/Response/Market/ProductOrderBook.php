@@ -18,11 +18,11 @@ class ProductOrderBook implements ResponseTypeInterface {
     private $asks;
     private $bids;
 
-    public function getSequence(): ?string {
+    public function getSequence(): ?int {
         return $this->sequence;
     }
 
-    private function setSequence(?string $sequence): self {
+    private function setSequence(?int $sequence): self {
         $this->sequence = $sequence;
         return $this;
     }

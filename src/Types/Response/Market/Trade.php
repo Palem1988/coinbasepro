@@ -35,11 +35,11 @@ class Trade implements ResponseTypeInterface {
 
     }
 
-    public function getTradeId(): ?string {
+    public function getTradeId(): ?int {
         return $this->trade_id;
     }
 
-    private function setTradeId(?string $trade_id): self {
+    private function setTradeId(?int $trade_id): self {
         $this->trade_id = $trade_id;
         return $this;
     }

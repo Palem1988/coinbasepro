@@ -6,6 +6,7 @@ $publicClient = new \CoinbasePro\Clients\PublicClient();
 $publicClient->setBaseURL(\CoinbasePro\Utilities\CoinbaseProConstants::COINBASEPRO_API_SANDBOX_URL);
 
 $products = $publicClient->getProducts();
+$orderPrice = 0;
 
 echo 'getProduct ';
 
@@ -14,13 +15,75 @@ if (!assert(is_array($products->getData()))) {
     exit(1);
 }
 
-/** @var \CoinbasePro\Types\Response\Market\Currency $currency */
+echo PHP_EOL;
+
 foreach ($products->getData() as $product) {
+
+    /** @var \CoinbasePro\Types\Response\Market\Currency $currency */
 
     if (!\in_array($product->getId(), \CoinbasePro\Utilities\CoinbaseProConstants::$productIdValues)) {
         echo 'failure: ' . $product->getId() . ' is not in constants' . PHP_EOL;
         exit(1);
     }
+
+    echo 'orderBook ' . $product->getId();
+
+    $orderBook = $publicClient->getProductOrderBook((new \CoinbasePro\Types\Request\Market\Product())->initFromResponse($product));
+
+    if (!is_array($orderBook->getData())) {
+        echo ' failure' . PHP_EOL;
+        exit(1);
+    }
+
+    echo ' success' . PHP_EOL;
+
+    echo 'ticker ' . $product->getId();
+
+    $ticker = $publicClient->getProductTicker((new \CoinbasePro\Types\Request\Market\Product())->initFromResponse($product));
+
+    if (!is_array($ticker->getData())) {
+        echo ' failure' . PHP_EOL;
+        exit(1);
+    }
+
+    if ($product->getId() === \CoinbasePro\Utilities\CoinbaseProConstants::PRODUCT_ID_BTC_USD) {
+        $orderPrice = $ticker->getFirst()->getPrice();
+    }
+
+    echo ' success' . PHP_EOL;
+
+    echo 'trades ' . $product->getId();
+
+    $ticker = $publicClient->getTrades((new \CoinbasePro\Types\Request\Market\Product())->initFromResponse($product));
+
+    if (!is_array($ticker->getData())) {
+        echo ' failure' . PHP_EOL;
+        exit(1);
+    }
+
+    echo ' success' . PHP_EOL;
+
+    echo 'historic ' . $product->getId();
+
+    $ticker = $publicClient->getProductHistoricRates((new \CoinbasePro\Types\Request\Market\Product())->initFromResponse($product));
+
+    if (!is_array($ticker->getData())) {
+        echo ' failure' . PHP_EOL;
+        exit(1);
+    }
+
+    echo ' success' . PHP_EOL;
+
+    echo '24h ' . $product->getId();
+
+    $ticker = $publicClient->getProduct24HrStats((new \CoinbasePro\Types\Request\Market\Product())->initFromResponse($product));
+
+    if (!is_array($ticker->getData())) {
+        echo ' failure' . PHP_EOL;
+        exit(1);
+    }
+
+    echo ' success' . PHP_EOL;
 
 }
 
@@ -35,7 +98,6 @@ if (!assert(is_array($currencies->getData()))) {
     exit(1);
 }
 
-/** @var \CoinbasePro\Types\Response\Market\Currency $currency */
 foreach ($currencies->getData() as $currency) {
 
     if (!\in_array($currency->getId(), \CoinbasePro\Utilities\CoinbaseProConstants::$currencyValues)) {
@@ -135,6 +197,20 @@ foreach ($accounts->getData() as $account) {
 
 }
 
-echo 'Done' . PHP_EOL;
+echo 'placeOrder';
 
+$order = (new \CoinbasePro\Types\Request\Authenticated\Order())
+    ->setProductId(\CoinbasePro\Utilities\CoinbaseProConstants::PRODUCT_ID_BTC_USD)
+    ->setPrice($orderPrice)
+    ->setSize(0.01)
+    ->setSide(\CoinbasePro\Utilities\CoinbaseProConstants::ORDER_SIDE_BUY);
+
+$order = $authenticatedClient->placeOrder($order);
+
+if (!is_array($order->getData())) {
+    echo 'failure: ' . json_encode($accounts->getMessage()) . PHP_EOL;
+    exit(1);
+}
+
+echo 'success' . PHP_EOL;
 exit(0);

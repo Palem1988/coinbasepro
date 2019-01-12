@@ -34,7 +34,7 @@ class Product24HourStats implements ResponseTypeInterface {
         return $this->high;
     }
 
-    private function setHigh(string $high): self {
+    private function setHigh(?string $high): self {
         $this->high = $high;
         return $this;
     }
