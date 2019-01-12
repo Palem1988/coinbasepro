@@ -25,7 +25,6 @@ use GuzzleHttp\RequestOptions;
 class PublicClient {
 
     private $productId;
-    private $retries = 5;
     private $baseURL = CoinbaseProConstants::COINBASEPRO_API_URL;
 
     public function getProductId(): ?string {

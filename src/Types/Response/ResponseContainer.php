@@ -3,7 +3,6 @@
 namespace CoinbasePro\Types\Response;
 
 use CoinbasePro\Interfaces\ResponseTypeInterface;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class ResponseContainer
@@ -75,7 +74,7 @@ class ResponseContainer {
         return $this->data;
     }
 
-    public function getFirst(): ?ResponseInterface {
+    public function getFirst(): ?ResponseTypeInterface {
         return $this->data[0] ?? null;
     }
 
