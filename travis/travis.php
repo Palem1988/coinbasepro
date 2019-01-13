@@ -201,7 +201,7 @@ echo 'placeOrder';
 
 $order = (new \CoinbasePro\Types\Request\Authenticated\Order())
     ->setProductId(\CoinbasePro\Utilities\CoinbaseProConstants::PRODUCT_ID_BTC_USD)
-    ->setPrice($orderPrice)
+    ->setPrice((float)$orderPrice)
     ->setSize(0.01)
     ->setSide(\CoinbasePro\Utilities\CoinbaseProConstants::ORDER_SIDE_BUY);
 
